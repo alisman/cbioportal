@@ -28,7 +28,7 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 $(document).ready(function() {
     var pathname = window.location.pathname;
@@ -51,5 +51,70 @@ $(document).ready(function() {
         $('#results').addClass('selected').show();
         return false;
     }
-      return false;
+    return false;
 });
+
+
+// Set frontend route to /patient
+window.defaultRoute = "/patient";
+
+window.loadReactApp = function() {
+
+    if (localStorage.getItem('localdev') === "true") {
+        // Use cbioportal-frontend localhost:3000 for dev
+        document.write('<script src="http://localhost:3000/reactapp/js/common.bundle.js"></scr' + 'ipt>');
+        document.write('<script src="http://localhost:3000/reactapp/js/main.app.js"></scr' + 'ipt>');
+        // Show alert
+        document.write('<div style="position: fixed; top: 0; left: 0; width: 100%;">' +
+            '<div class="alert alert-warning">' +
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+            'cbioportal-frontend dev mode, using localhost:3000' +
+            '</div>' +
+            '</div>');
+    } else if (localStorage.getItem('heroku')) {
+        var herokuInstance = 'https://' + localStorage.getItem('heroku') + '.herokuapp.com';
+        document.write('<link rel="stylesheet" type="text/css" href="' + herokuInstance + '/reactapp/css/bootstrap.min.css" />');
+        document.write('<link rel="stylesheet" type="text/css" href="' + herokuInstance + '/reactapp/css/styles.css" />');
+        document.write('<script src="' + herokuInstance + '/reactapp/js/common.bundle.js"></scr' + 'ipt>');
+        document.write('<script src="' + herokuInstance + '/reactapp/js/main.app.js"></scr' + 'ipt>');
+        // Show alert
+        document.write('<div style="position: fixed; top: 0; left: 0; width: 100%;">' +
+            '<div class="alert alert-warning">' +
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+            'cbioportal-frontend dev mode, using ' + herokuInstance +
+            '</div>' +
+            '</div>');
+    } else {
+        // Use deployed sources
+        document.write('<link rel="stylesheet" type="text/css" href="/reactapp/css/bootstrap.min.css" />');
+        document.write('<link rel="stylesheet" type="text/css" href="/reactapp/css/styles.css" />');
+        document.write('<script src="/reactapp/js/common.bundle.js"></scr' + 'ipt>');
+        document.write('<script src="/reactapp/js/main.app.js"></scr' + 'ipt>');
+    }
+
+};
+
+(function(){
+
+    var appReady = false;
+    var queue = [];
+    window.onReactAppReady = function(arg){
+
+        if (arguments.length === 0) {
+            appReady = true;
+        }
+
+        queue.push(arg || function(){});
+        if (appReady) {
+            queue.forEach(function(item){
+                if (typeof item === 'function') item();
+            });
+            queue = [];
+        }
+    }
+
+}());
+
+
+
+   

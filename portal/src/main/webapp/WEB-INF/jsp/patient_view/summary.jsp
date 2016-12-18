@@ -76,11 +76,11 @@ String linkToCancerStudy = GlobalProperties.getLinkToCancerStudyView(cancerStudy
         }
         
         $('#cna_summary_wrapper_table').hide();
-        if (showGenomicOverview) initGenomicsOverview();
+        //if (showGenomicOverview) initGenomicsOverview();
     });
 
     function initGenomicsOverview() {
-        var chmInfo = new ChmInfo();
+        var chmnpInfo = new ChmInfo();
 
         var genomic_overview_length = $("#td-content").width() - 75;
         genomic_overview_length -= (hasAlleleFrequencyData&&caseIds.length>0 ? 110 : 0);
