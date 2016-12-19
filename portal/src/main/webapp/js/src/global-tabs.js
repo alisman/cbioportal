@@ -62,6 +62,7 @@ window.loadReactApp = function() {
 
     if (localStorage.getItem('localdev') === "true") {
         // Use cbioportal-frontend localhost:3000 for dev
+        document.write('<link rel="stylesheet" type="text/css" href="/reactapp/css/bootstrap.min.css" />');
         document.write('<script src="http://localhost:3000/reactapp/js/common.bundle.js"></scr' + 'ipt>');
         document.write('<script src="http://localhost:3000/reactapp/js/main.app.js"></scr' + 'ipt>');
         // Show alert
