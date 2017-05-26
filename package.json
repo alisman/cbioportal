@@ -1,0 +1,27 @@
+{
+  "name": "cbioportal",
+  "version": "1.0.0",
+  "description": "The cBioPortal for Cancer Genomics provides visualization, analysis, and download of large-scale cancer genomics data sets.  The cBioPortal is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && export PORTAL_HOME=`pwd` &&  mvn -e -Ppublic -Dfinal.war.name=cbioportal -DskipTests -Ddb.user=cbio_user -Ddb.password=cbio_pass -Ddb.portal_db_name=public_test -Ddb.connection_string=jdbc:mysql://cbioportal-public.c1xhhbwn8izk.us-east-1.rds.amazonaws.com:3306/ -Ddb.host=cbioportal-public.c1xhhbwn8izk.us-east-1.rds.amazonaws.com clean install",
+    "start": "java -Ddbconnector=dbcp -jar portal/target/dependency/webapp-runner.jar --expand-war portal/target/cbioportal.war",
+    "clean": "rm -rf ${HOME}/.m2/repository/com/github/cbioportal/cbioportal-frontend/"
+    },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tamba32/cbioportal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tamba32/cbioportal/issues"
+  },
+  "homepage": "https://github.com/Tamba32/cbioportal#readme"
+}
