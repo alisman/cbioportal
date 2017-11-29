@@ -1,9 +1,6 @@
 window.initDatamanager = function (genetic_profile_ids, oql_query, cancer_study_ids, study_sample_map, z_score_threshold, rppa_score_threshold,
 	case_set_properties, customDriverAnnotationsByDefault, showDriverAnnotation, hasDriverAnnotations, numTiers, enableOncoKBandHotspots,
 	showTierAnnotation, enableTiers, hidePassenger) {
-
-    return;
-    
     
     var signOfDiff = function(a,b) {
 	if (a < b) {

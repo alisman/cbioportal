@@ -197,12 +197,16 @@ window.onReactAppReady(function() {
             // retrieve the cancerTypesMap and create an iterator for the values
             showCancerTypesSummary = (Boolean) request.getAttribute(QueryBuilder.HAS_CANCER_TYPES);
             
-            out.println ("<li><a href='#summary' class='result-tab' id='oncoprint-result-tab'>OncoPrint</a></li>");
-            // if showCancerTypesSummary is try, add the list item
+           
+            
             if(showCancerTypesSummary){
                 out.println ("<li><a href='#pancancer_study_summary' class='result-tab' title='Cancer types summary'>"
                 + "Cancer Types Summary</a></li>");
             }
+            
+             out.println ("<li><a href='#summary' class='result-tab' id='oncoprint-result-tab'>OncoPrint</a></li>");
+                        // if showCancerTypesSummary is try, add the list item
+                        
 
             if (computeLogOddsRatio) {
                 out.println ("<li><a href='#mutex' class='result-tab' id='mutex-result-tab'>"
@@ -267,7 +271,10 @@ window.onReactAppReady(function() {
             out.println("</div>");
     %>
 
-
+        <div class="section" id="summary">
+            <% //contents of fingerprint.jsp now come from attribute on request object %>
+            <%@ include file="oncoprint/main.jsp" %>
+        </div>
 
         <!-- if showCancerTypes is true, include cancer_types_summary.jsp -->
             <% if(showCancerTypesSummary) { %>
