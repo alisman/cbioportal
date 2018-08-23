@@ -65,6 +65,14 @@ studies += "}";
     priorityStudies : <%=studies%>,
     sessionServiceIsEnabled: '<%=GlobalProperties.getSessionServiceUrl()%>' !== "",
     baseUrl:"<%=baseURL%>",
-    fontendCongfigOveride:JSON.parse('<%=GlobalProperties.getFrontendConfig()%>')
+    fontendCongfigOveride:JSON.parse('<%=GlobalProperties.getFrontendConfig()%>'),
+    skinShowDataTabSets: (<%=GlobalProperties.showDataTab()%> === true),
+    skinShowNewsTab: (<%=GlobalProperties.showNewsTab()%> === true),
+    skinShowWebAPITab: (<%=GlobalProperties.showWebApiTab()%> === true),
+    skinShowRmatLABTab : (<%=GlobalProperties.showRMatlabTab()%> === true),
+    skinShowTutorialsTab: (<%=GlobalProperties.showTutorialsTab()%> === true),
+    emailContactAddress: "<%=GlobalProperties.getContactEmailAddress()%>",
+
+    
 });
 
