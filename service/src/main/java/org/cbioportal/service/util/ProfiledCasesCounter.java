@@ -109,9 +109,7 @@ public class ProfiledCasesCounter<T extends AlterationCountByGene> {
                     alterationCounts.add((T) alterationCountByGene);
                 }
             });
-
         }
-        
     }
 
     private Map<String, Set<String>> extractCasesWithDataInGenePanel(
@@ -133,7 +131,7 @@ public class ProfiledCasesCounter<T extends AlterationCountByGene> {
 
     public Map<String, Long> getProfiledCaseCountsByGroup(
             Map<String, List<MolecularProfileCaseIdentifier>> molecularProfileCaseSets,
-            Function<GenePanelData, String> caseUniqueIdentifier) {
+            EnrichmentType enrichmentType) {
 
         return molecularProfileCaseSets.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> {
             List<String> queriedCaseIds = new ArrayList<>();
@@ -143,10 +141,18 @@ public class ProfiledCasesCounter<T extends AlterationCountByGene> {
                 queriedMolecularProfileIds.add(pair.getMolecularProfileId());
             });
 
-            return genePanelService
-                    .fetchGenePanelDataInMultipleMolecularProfilesByPatientIds(queriedMolecularProfileIds, queriedCaseIds)
+            List<GenePanelData> genePanelDatas = new ArrayList<>();
+            if (EnrichmentType.PATIENT.equals(enrichmentType)) {
+                genePanelDatas = genePanelService.fetchGenePanelDataInMultipleMolecularProfilesByPatientIds(
+                        queriedMolecularProfileIds, queriedCaseIds);
+            } else {
+                genePanelDatas = genePanelService
+                        .fetchGenePanelDataInMultipleMolecularProfiles(queriedMolecularProfileIds, queriedCaseIds);
+            }
+
+            return genePanelDatas
                     .stream()
-                    .map(caseUniqueIdentifier)
+                    .map(EnrichmentType.PATIENT.equals(enrichmentType) ? patientUniqueIdentifier : sampleUniqueIdentifier)
                     .distinct()
                     .count();
         }));

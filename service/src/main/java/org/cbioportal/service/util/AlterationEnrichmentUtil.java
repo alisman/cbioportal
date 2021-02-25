@@ -49,8 +49,8 @@ public class AlterationEnrichmentUtil<T extends AlterationCountByGene> {
                                         .collect(Collectors.toMap(AlterationCountByGene::getEntrezGeneId, c -> c));
                             }));
 
-        Map<String, Long> profiledCaseCountsByGroup = profiledCasesCounter.getProfiledCaseCountsByGroup(molecularProfileCaseSets,
-                EnrichmentType.PATIENT.equals(enrichmentType) ? profiledCasesCounter.patientUniqueIdentifier : profiledCasesCounter.sampleUniqueIdentifier);
+        Map<String, Long> profiledCaseCountsByGroup = profiledCasesCounter
+                .getProfiledCaseCountsByGroup(molecularProfileCaseSets, enrichmentType);
 
         Set<Integer> allGeneIds = mutationCountsbyEntrezGeneIdAndGroup
                 .values()
@@ -67,7 +67,7 @@ public class AlterationEnrichmentUtil<T extends AlterationCountByGene> {
                     .collect(Collectors.toList()),
                 "ENTREZ_GENE_ID",
                 "SUMMARY");
-        
+
         return genes
                 .stream()
                 .filter(gene -> {
